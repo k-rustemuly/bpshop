@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Resources\UserResource;
 
 class AuthController extends BaseController
 {
@@ -18,11 +19,11 @@ class AuthController extends BaseController
         $signUpFields["password"] = Hash::make($signUpFields["password"]);
 
         $user = User::create($signUpFields);
-        $token = $user->createToken('auth_token')->plainTextToken;
+        $token = $user->createToken('api_token')->plainTextToken;
 
         return $this->success(
             [
-                'user' => $user,
+                'user' => new UserResource($user),
                 'access_token' => $token,
                 'token_type' => 'Bearer'
             ]
@@ -38,11 +39,11 @@ class AuthController extends BaseController
         }
 
         $user = User::where('email', $userFields['email'])->firstOrFail();
-        $token = $user->createToken('auth_token')->plainTextToken;
+        $token = $user->createToken('api_token')->plainTextToken;
 
         return $this->success(
             [
-                'user' => $user,
+                'user' => new UserResource($user),
                 'access_token' => $token,
                 'token_type' => 'Bearer'
             ]
