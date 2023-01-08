@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Requests\Api\SignUpRequest;
 use App\Http\Requests\Api\SignInRequest;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
@@ -37,7 +38,6 @@ class AuthController extends BaseController
         }
 
         $user = User::where('email', $userFields['email'])->firstOrFail();
-
         $token = $user->createToken('auth_token')->plainTextToken;
 
         return $this->success(
@@ -47,5 +47,12 @@ class AuthController extends BaseController
                 'token_type' => 'Bearer'
             ]
         );
+    }
+
+    public function logout(Request $request)
+    {
+        $request->user()->currentAccessToken()->delete();
+
+        return $this->success();
     }
 }
