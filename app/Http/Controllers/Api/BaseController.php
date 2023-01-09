@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Responders\JsonResponder as Responder;
 use App\Http\Payloads\SuccessPayload;
 use App\Http\Payloads\UnauthorizedPayload;
+use App\Http\Payloads\NotFoundPayload;
 
 class BaseController extends Controller
 {
@@ -29,4 +30,11 @@ class BaseController extends Controller
             new UnauthorizedPayload($message)
         )->respond();
     }
+
+    public function notFound(string $message = "Не найдено"){
+        return $this->responder->withResponse(
+            new NotFoundPayload($message)
+        )->respond();
+    }
+
 }

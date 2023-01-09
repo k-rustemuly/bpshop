@@ -12,6 +12,8 @@ class ProductController extends BaseController
     public function slug(Request $request)
     {
         $product = Product::whereSlug($request->slug)->first();
+        if(!$product) return $this->notFound();
+
         return $this->success(new ProductResource($product));
     }
 
