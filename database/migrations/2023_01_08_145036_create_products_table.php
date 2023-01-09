@@ -17,7 +17,7 @@ class CreateProductsTable extends Migration
             $table->id();
             $table->string('name')->comment('Название');
             $table->string('description')->comment('Описание');
-            $table->string('slug');
+            $table->string('slug')->index('slug');
             $table->integer('category_id')->default(0)->index('category_id')->comment('ID категории второго/третьего уровня');
             $table->decimal('price', 9, 2)->comment('Цена');
             $table->timestamps();

@@ -9,6 +9,8 @@ class Category extends Model
 {
     use HasFactory;
 
+    protected $hidden = ['created_at', 'updated_at'];
+
     public function childs()
     {
         return $this->hasMany(__CLASS__, 'parent_id', 'id') ;
