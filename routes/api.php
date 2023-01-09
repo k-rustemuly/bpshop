@@ -20,6 +20,13 @@ Route::post('/sign-in', [App\Http\Controllers\Api\AuthController::class, 'signIn
 
 Route::get('/category', [App\Http\Controllers\Api\CategoryController::class, 'list']);
 
+Route::group(['prefix' => 'product', 'as' => 'product.'], function() {
+
+    Route::get('', [App\Http\Controllers\Api\ProductController::class, 'list'])->name('list');
+
+    Route::get('/{slug}', [App\Http\Controllers\Api\ProductController::class, 'slug'])->name('slug');
+
+});
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
 
