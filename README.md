@@ -2,7 +2,7 @@
 ```sh
 php artisan migrate
 ```
-Сидеры для категории товаров
+Сидеры 
 ```sh
-php artisan db:seed --class=CategorySeeder
+php artisan db:seed
 ```
