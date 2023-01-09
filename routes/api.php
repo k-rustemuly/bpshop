@@ -18,6 +18,9 @@ Route::post('/sign-up', [App\Http\Controllers\Api\AuthController::class, 'signUp
 
 Route::post('/sign-in', [App\Http\Controllers\Api\AuthController::class, 'signIn']);
 
+Route::get('/category', [App\Http\Controllers\Api\CategoryController::class, 'list']);
+
+
 Route::group(['middleware' => ['auth:sanctum']], function () {
 
     Route::get('/profile', function(Request $request) {
