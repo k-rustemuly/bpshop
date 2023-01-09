@@ -9,7 +9,7 @@ use App\Http\Payloads\UnauthorizedPayload;
 
 class BaseController extends Controller
 {
-    private $responder;
+    protected $responder;
 
     public function __construct(Responder $responder)
     {
