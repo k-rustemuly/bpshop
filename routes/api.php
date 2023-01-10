@@ -34,11 +34,17 @@ Route::group(['prefix' => 'cart', 'as' => 'cart.'], function() {
 
     Route::delete('/{uuid?}', [App\Http\Controllers\Api\CartController::class, 'delete'])->whereUuid('uuid');
 
+    Route::get('/{uuid?}', [App\Http\Controllers\Api\CartController::class, 'list'])->whereUuid('uuid');
+
+    Route::post('/checkout', [App\Http\Controllers\Api\CartController::class, 'checkout'])->middleware(['auth:sanctum']);
+
+    Route::post('/{uuid}/checkout', [App\Http\Controllers\Api\CartController::class, 'checkoutGuest'])->whereUuid('uuid');
+
 });
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
 
-    Route::get('/profile', function(Request $request) {
+    Route::get('/profile', function() {
         return auth()->user();
     });
 

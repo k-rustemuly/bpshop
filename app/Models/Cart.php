@@ -10,8 +10,8 @@ class Cart extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'products',
+    protected $hidden = [
+        "created_at",
     ];
 
     protected static function boot()
@@ -21,7 +21,7 @@ class Cart extends Model
             /**
              * @deprecated
              */
-            if($user = auth('sanctum')->user()) {
+            if($user = auth("sanctum")->user()) {
                 $cart->user_id = $user->id;
             }
             else if(!$cart->uuid){

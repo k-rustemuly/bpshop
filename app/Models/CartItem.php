@@ -10,10 +10,10 @@ class CartItem extends Model
     use HasFactory;
 
     protected $fillable = [
-        'cart_id',
-        'product_id',
-        'price',
-        'quantity',
+        "cart_id",
+        "product_id",
+        "price",
+        "quantity",
     ];
 
     protected static function boot()
@@ -25,5 +25,10 @@ class CartItem extends Model
         static::deleted(function ($cartItem) {
             Cart::calcTotal($cartItem->cart_id);
         });
+    }
+
+    public function product()
+    {
+        return $this->belongsTo(Product::class);
     }
 }
