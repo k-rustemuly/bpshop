@@ -22,9 +22,17 @@ Route::get('/category', [App\Http\Controllers\Api\CategoryController::class, 'li
 
 Route::group(['prefix' => 'product', 'as' => 'product.'], function() {
 
-    Route::get('', [App\Http\Controllers\Api\ProductController::class, 'list'])->name('list');
+    Route::get('', [App\Http\Controllers\Api\ProductController::class, 'list']);
 
-    Route::get('/{slug}', [App\Http\Controllers\Api\ProductController::class, 'slug'])->name('slug');
+    Route::get('/{slug}', [App\Http\Controllers\Api\ProductController::class, 'slug']);
+
+});
+
+Route::group(['prefix' => 'cart', 'as' => 'cart.'], function() {
+
+    Route::post('/{uuid?}', [App\Http\Controllers\Api\CartController::class, 'save'])->whereUuid('uuid');
+
+    Route::delete('/{uuid?}', [App\Http\Controllers\Api\CartController::class, 'delete'])->whereUuid('uuid');
 
 });
 

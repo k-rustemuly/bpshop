@@ -7,6 +7,7 @@ use App\Http\Responders\JsonResponder as Responder;
 use App\Http\Payloads\SuccessPayload;
 use App\Http\Payloads\UnauthorizedPayload;
 use App\Http\Payloads\NotFoundPayload;
+use App\Http\Payloads\ErrorPayload;
 
 class BaseController extends Controller
 {
@@ -37,4 +38,9 @@ class BaseController extends Controller
         )->respond();
     }
 
+    public function error(string $message = "Ошибка"){
+        return $this->responder->withResponse(
+            new ErrorPayload($message)
+        )->respond();
+    }
 }
