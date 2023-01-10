@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use Illuminate\Http\Request;
 use App\Http\Requests\Api\CartAddRequest;
 use App\Http\Requests\Api\CartDeleteRequest;
+use App\Http\Requests\Api\GuestCheckoutRequest;
 use App\Models\Cart;
 use App\Models\CartItem;
 use App\Models\Product;
@@ -122,4 +123,40 @@ class CartController extends BaseController
         $cart->delete();
         return $this->success("Заказ успешно оформлен");
     }
+
+    public function checkoutGuest(GuestCheckoutRequest $request){
+        $contacts = $request->validated();
+        $params["uuid"] = $request->uuid;
+        $cart = Cart::where($params)->first();
+
+        if(!$cart) return $this->error("Корзина не найдено");
+
+        $cartItem = CartItem::where("cart_id", $cart->id);
+
+        $cartItems = $cartItem->get()->all();
+
+        if(empty($cartItems)) return $this->error("Корзина пуста");
+
+        $checkOut = Checkout::create([
+            "email" => $contacts["email"],
+            "phone_number" => $contacts["phone_number"],
+            "quantity" => $cart->quantity,
+            "total" => $cart->total
+        ]);
+
+        foreach($cartItems as $item){
+            $checkoutItem = [
+                "quantity" => $item->quantity,
+                "price" => $item->price,
+                "product_id" => $item->product_id,
+                "checkout_id" => $checkOut->id
+            ];
+            CheckoutItem::create($checkoutItem);
+        }
+
+        $cartItem->delete();
+        $cart->delete();
+        return $this->success("Заказ успешно оформлен");
+    }
+
 }
