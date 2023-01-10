@@ -107,7 +107,15 @@ class CartController extends BaseController
 
         if(empty($cartItems)) return $this->error("Корзина пуста");
 
-        $checkOut = Checkout::create(Arr::only($cart->toArray(), ["user_id", "quantity", "total"]));
+        $checkOut = Checkout::create(
+            [
+                "user_id" => $user->id,
+                "email" => $user->email,
+                "phone_number" => $user->phone_number,
+                "quantity" => $cart->quantity,
+                "total" => $cart->total
+            ]
+        );
 
         foreach($cartItems as $item){
             $checkoutItem = [
