@@ -15,4 +15,10 @@ class CheckoutItem extends Model
         "price",
         "quantity",
     ];
+
+    public function product()
+    {
+        return $this->belongsTo(Product::class);
+    }
+
 }

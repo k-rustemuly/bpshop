@@ -48,5 +48,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         return auth()->user();
     });
 
+    Route::get('/order', [App\Http\Controllers\Api\OrderController::class, 'list']);
+
     Route::post('/logout', [App\Http\Controllers\Api\AuthController::class, 'logout']);
 });
