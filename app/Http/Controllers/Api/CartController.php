@@ -17,7 +17,7 @@ use App\Transformers\CartItemTransformer;
 class CartController extends BaseController
 {
 
-    public function save(CartAddRequest $request){
+    public function store(CartAddRequest $request){
         $data = $request->validated();
         $product_id = $data["product_id"];
         $quantity = $data["quantity"];
@@ -74,7 +74,7 @@ class CartController extends BaseController
         return $this->success($cart);
     }
 
-    public function list(Request $request){
+    public function index(Request $request){
         $params = [];
         if($user = auth("sanctum")->user()) {
             $params["user_id"] = $user->id;

@@ -9,7 +9,7 @@ use App\Models\Characteristic;
 class CharacteristicController extends BaseController
 {
 
-    public function add(CharacteristicAddRequest $request) {
+    public function store(CharacteristicAddRequest $request) {
         $characteristic = Characteristic::create($request->validated());
         return $this->success($characteristic);
     }

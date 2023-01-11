@@ -18,11 +18,11 @@ Route::post('/sign-up', [App\Http\Controllers\Api\AuthController::class, 'signUp
 
 Route::post('/sign-in', [App\Http\Controllers\Api\AuthController::class, 'signIn']);
 
-Route::get('/category', [App\Http\Controllers\Api\CategoryController::class, 'list']);
+Route::get('/category', [App\Http\Controllers\Api\CategoryController::class, 'index']);
 
 Route::group(['prefix' => 'product', 'as' => 'product.'], function() {
 
-    Route::get('', [App\Http\Controllers\Api\ProductController::class, 'list']);
+    Route::get('', [App\Http\Controllers\Api\ProductController::class, 'index']); //TODO:
 
     Route::get('/{slug}', [App\Http\Controllers\Api\ProductController::class, 'slug']);
 
@@ -30,11 +30,11 @@ Route::group(['prefix' => 'product', 'as' => 'product.'], function() {
 
 Route::group(['prefix' => 'cart', 'as' => 'cart.'], function() {
 
-    Route::post('/{uuid?}', [App\Http\Controllers\Api\CartController::class, 'save'])->whereUuid('uuid');
+    Route::post('/{uuid?}', [App\Http\Controllers\Api\CartController::class, 'store'])->whereUuid('uuid');
 
     Route::delete('/{uuid?}', [App\Http\Controllers\Api\CartController::class, 'delete'])->whereUuid('uuid');
 
-    Route::get('/{uuid?}', [App\Http\Controllers\Api\CartController::class, 'list'])->whereUuid('uuid');
+    Route::get('/{uuid?}', [App\Http\Controllers\Api\CartController::class, 'index'])->whereUuid('uuid');
 
     Route::post('/checkout', [App\Http\Controllers\Api\CartController::class, 'checkout'])->middleware(['auth:sanctum']);
 
@@ -44,7 +44,7 @@ Route::group(['prefix' => 'cart', 'as' => 'cart.'], function() {
 
 Route::group(['prefix' => 'characteristic', 'as' => 'characteristic.'], function() {
 
-    Route::put('', [App\Http\Controllers\Api\CharacteristicController::class, 'add']);
+    Route::put('', [App\Http\Controllers\Api\CharacteristicController::class, 'store']);
 
     Route::delete('', [App\Http\Controllers\Api\CharacteristicController::class, 'delete']);
 
@@ -56,7 +56,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         return auth()->user();
     });
 
-    Route::get('/order', [App\Http\Controllers\Api\OrderController::class, 'list']);
+    Route::get('/order', [App\Http\Controllers\Api\OrderController::class, 'index']);
 
     Route::post('/logout', [App\Http\Controllers\Api\AuthController::class, 'logout']);
 });

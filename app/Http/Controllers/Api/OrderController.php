@@ -8,7 +8,7 @@ use App\Transformers\OrderTransformer;
 class OrderController extends BaseController
 {
 
-    public function list(){
+    public function index(){
         $user = auth()->user();
         $orders = Checkout::whereUserId($user->id)->get()->all();
 

@@ -18,7 +18,7 @@ class CategoryController extends BaseController
         $this->categoryRepository = $categoryRepository;
     }
 
-    public function list()
+    public function index()
     {
         $categories = $this->categoryRepository->getAll();
         $transformed = fractal()->collection($categories, new TreeCategoryTransformer())->toArray();
