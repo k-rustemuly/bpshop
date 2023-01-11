@@ -13,7 +13,6 @@ use App\Models\Checkout;
 use App\Models\CheckoutItem;
 use Illuminate\Support\Str;
 use App\Transformers\CartItemTransformer;
-use Illuminate\Support\Arr;
 
 class CartController extends BaseController
 {

@@ -3,7 +3,7 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-
+use App\Transformers\CharacteristicTransformer;
 class ProductResource extends JsonResource
 {
     /**
@@ -22,8 +22,7 @@ class ProductResource extends JsonResource
             "slug" => $this->slug,
             "price" => $this->price,
             "category" => $this->category,
-            // "created_at" => $this->created_at->format("Y-m-d H:i:s"),
-            // "updated_at" => $this->updated_at->format("Y-m-d H:i:s"),
+            "characteristics" => fractal()->collection($this->characteristics()->get(), new CharacteristicTransformer())->toArray()["data"]
         ];
     }
 }

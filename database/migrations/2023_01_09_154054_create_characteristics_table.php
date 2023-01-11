@@ -15,8 +15,11 @@ class CreateCharacteristicsTable extends Migration
     {
         Schema::create('characteristics', function (Blueprint $table) {
             $table->id();
+            $table->string('code')->unique()->comment('Код lowercase');
             $table->string('name')->comment('Название');
-            $table->string('description')->comment('Описание');
+            $table->string('validation')->comment('Для валидации полей');
+            $table->boolean('is_filterable')->default(0);
+            $table->boolean('is_required')->default(0);
             $table->timestamps();
         });
     }

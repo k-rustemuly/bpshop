@@ -42,6 +42,14 @@ Route::group(['prefix' => 'cart', 'as' => 'cart.'], function() {
 
 });
 
+Route::group(['prefix' => 'characteristic', 'as' => 'characteristic.'], function() {
+
+    Route::put('', [App\Http\Controllers\Api\CharacteristicController::class, 'add']);
+
+    Route::delete('', [App\Http\Controllers\Api\CharacteristicController::class, 'delete']);
+
+});
+
 Route::group(['middleware' => ['auth:sanctum']], function () {
 
     Route::get('/profile', function() {

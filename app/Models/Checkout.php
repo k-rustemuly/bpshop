@@ -9,6 +9,9 @@ class Checkout extends Model
 {
     use HasFactory;
 
+    /**
+     * @var array<int, string>
+     */
     protected $fillable = [
         "user_id",
         "email",

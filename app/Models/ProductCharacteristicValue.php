@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class CheckoutItem extends Model
+class ProductCharacteristicValue extends Model
 {
     use HasFactory;
 
@@ -13,15 +13,16 @@ class CheckoutItem extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        "checkout_id",
         "product_id",
-        "price",
-        "quantity",
+        "characteristic_id",
+        "value"
     ];
 
-    public function product()
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function characteristic()
     {
-        return $this->belongsTo(Product::class);
+        return $this->belongsTo(Characteristic::class);
     }
-
 }

@@ -10,6 +10,9 @@ class Cart extends Model
 {
     use HasFactory;
 
+    /**
+     * @var array<int, string>
+     */
     protected $fillable = [
         "user_id",
         "uuid",
@@ -17,6 +20,9 @@ class Cart extends Model
         "quantity",
     ];
 
+    /**
+     * @var array<int, string>
+     */
     protected $hidden = [
         "created_at",
     ];

@@ -10,12 +10,15 @@ class Product extends Model
 {
     use HasFactory;
 
+    /**
+     * @var array<int, string>
+     */
     protected $fillable = [
-        'name',
-        'slug',
-        'description',
-        'category_id',
-        'price'
+        "name",
+        "slug",
+        "description",
+        "category_id",
+        "price"
     ];
 
     protected static function boot()
@@ -29,7 +32,7 @@ class Product extends Model
 
     private function createSlug($name){
         if (static::whereSlug($slug = Str::slug($name))->exists()) {
-            $max = static::whereName($name)->latest('id')->skip(1)->value('slug');
+            $max = static::whereName($name)->latest("id")->skip(1)->value("slug");
             if (is_numeric($max[-1])) {
                 return preg_replace_callback('/(\d+)$/', function ($matches) {
                     return $matches[1] + 1;
@@ -45,4 +48,11 @@ class Product extends Model
         return $this->belongsTo(Category::class);
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function characteristics()
+    {
+        return $this->hasMany(ProductCharacteristicValue::class);
+    }
 }

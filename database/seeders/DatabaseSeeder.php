@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Characteristic;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -16,6 +17,8 @@ class DatabaseSeeder extends Seeder
         $this->call([
             CategorySeeder::class,
             ProductSeeder::class,
+            CharacteristicSeeder::class,
+            ProductCharacteristicValueSeeder::class,
         ]);
     }
 }
